@@ -1,4 +1,4 @@
-// File: D:\last_minor\plant_dd\web\src\app\page.tsx
+// File: /home/azure/Projects/Plant_disease/plant_dd/web/src/app/page.tsx
 import * as entry from '../../../src/app/page.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
