@@ -70,7 +70,9 @@ def get_prediction(image, level="all"):
                 list_of_predictions.append(f"{top10[idx]} ~> {k}")
         return list_of_predictions
 
+
 import json
+
 
 @app.post("/")
 async def create_upload_file(file: UploadFile, plant_name: str):
@@ -78,17 +80,15 @@ async def create_upload_file(file: UploadFile, plant_name: str):
     with open(f"cleaned/{file.filename}", "wb") as buffer:
         buffer.write(file.file.read())
 
+    with open("disease_info.json") as f:
+        data = json.load(f)
 
-    with open('disease_info.json') as f:
-        data = json.load(f)   
-    
     # disease_info = {}
     # for item in data:
     #     if item.get("disease_name") == "disease_name":
     #         disease_info = item
     #         break
-    
-    
+
     # predictions = get_prediction(file, level="all")
     predictions = get_prediction(f"{file.filename}", level="all")
     print(file.filename, predictions, plant_name)
@@ -97,13 +97,14 @@ async def create_upload_file(file: UploadFile, plant_name: str):
     for i in predictions:
         confidence = float(i.split("~>")[0][1:-2])
         if plant_name in i and "healthy" not in i:
-            disease_name= i.split("~>")[1].strip()
+            disease_name = i.split("~>")[1].strip()
             for item in data:
-                if item.get("disease_name")==disease_name:
-                    description=item.get("description")
-                    prevention=item.get("prevention")
-                    supplement_name=item.get("supplement_name")
-                    supplement_link=item.get("supplement_link")
+                if item.get("disease_name") == disease_name:
+                    description = item.get("description")
+                    prevention = item.get("prevention")
+                    supplement_name = item.get("supplement_name")
+                    supplement_link = item.get("supplement_link")
+                    supplement_img = item.get("supplement_img")
                     continue
             max_confidence = max(max_confidence, confidence)
             results.append(
@@ -111,10 +112,11 @@ async def create_upload_file(file: UploadFile, plant_name: str):
                     "disease_name": disease_name,
                     "confidence": float(i.split("~>")[0][1:-2]),
                     "is_plant": True,
-                    "description":description,
-                    "prevention":prevention,
-                    "supplement_name":supplement_name,
-                    "supplement_link":supplement_link,
+                    "description": description,
+                    "prevention": prevention,
+                    "supplement_name": supplement_name,
+                    "supplement_link": supplement_link,
+                    "supplement_img": supplement_img,
                 }
             )
         elif plant_name in i and "healthy" in i:
@@ -129,12 +131,11 @@ async def create_upload_file(file: UploadFile, plant_name: str):
         else:
             continue
     if results == []:
-        return [{"disease_name": "Not found", "confidence": 0.0}]
-    if max_confidence < 0.5:
         return [{"disease_name": "Not found", "confidence": 0.0, "is_plant": False}]
+    # if max_confidence < 0.5:
+    #     return [{"disease_name": "Not found", "confidence": 0.0, "is_plant": False}]
     results = sorted(results, key=lambda x: x["confidence"], reverse=True)
     return results
-
 
 
 if __name__ == "__main__":

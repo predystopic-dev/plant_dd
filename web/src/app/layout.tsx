@@ -1,14 +1,14 @@
-import { ThemeProvider } from "@/components/theme-provider"
-import type { Metadata } from "next"
-import { siteConfig } from "@/config/site"
-import { Inter } from "next/font/google"
-import { Navbar } from "@/components/navbar"
-import { Toaster } from "@/components/ui/toaster"
-import Footer from "@/components/footer"
-import "./globals.css"
-import QueryWrapper from "@/components/wrapper/query-wrapper"
+import { ThemeProvider } from "@/components/theme-provider";
+import type { Metadata } from "next";
+import { siteConfig } from "@/config/site";
+import { Inter } from "next/font/google";
+import { Navbar } from "@/components/navbar";
+import { Toaster } from "@/components/ui/toaster";
+import Footer from "@/components/footer";
+import "./globals.css";
+import QueryWrapper from "@/components/wrapper/query-wrapper";
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
@@ -24,9 +24,8 @@ export const metadata: Metadata = {
     "Radix UI",
     "Shadcn UI",
     "Plant Disease Detection",
-    "Rudraksh",
+    "Fasal Hustle",
   ],
-  creator: "Deveesh-Shetty",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -48,29 +47,24 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: "@ShettyDeveesh",
+    creator: "@@",
   },
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
-  authors: [
-    {
-      name: "Deveesh Shetty",
-      url: "https://deveesh.vercel.app",
-    },
-  ],
+
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -85,5 +79,5 @@ export default function RootLayout({
         </QueryWrapper>
       </body>
     </html>
-  )
+  );
 }
