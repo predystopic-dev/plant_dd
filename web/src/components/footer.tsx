@@ -49,7 +49,7 @@ export default function Footer() {
           <ul className="w-2/3 flex flex-col mt-2">
             <Button variant="link" asChild>
               <Link
-                href="https://github.com/Deveesh-Shetty/rudraksh"
+                href="https://github.com/predystopic-dev/plant_dd"
                 target="_blank"
                 className="flex items-center gap-2"
               >
@@ -60,9 +60,9 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      <div className="bg-accent/50 text-center py-4">
+      {/* <div className="bg-accent/50 text-center py-4">
         <p>&#169; Copyrights - Team Rudra {new Date().getFullYear()}</p>
-      </div>
+      </div> */}
     </footer>
   )
 }
